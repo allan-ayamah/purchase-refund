@@ -28,7 +28,7 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
-    @GetMapping("{phoneNumber}/phone-number")
+    @GetMapping("{phoneNumber}/search-phone-number")
     public Customer getCustomerByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) throws PurchaseRefundException{
         return customerService.getCustomerByPhoneNumber(phoneNumber);
     }
