@@ -40,6 +40,12 @@ public class RefundService {
         }
     }
 
+    /**
+     * Retuns a a refund made to a customer
+     * @param id the refund id
+     * @return  the refund object
+     * @throws PurchaseRefundException
+     */
     public Refund getRefundById(int id) throws PurchaseRefundException{
         try{
             return refundDao.getRefundById(id);
@@ -51,7 +57,7 @@ public class RefundService {
     }
 
     /**
-     * Returns all refunds made to to a customer
+     * Returns a list of all refunds made to a customer
      * @param customerId the customer id
      * @return  the list of refunds
      * @throws PurchaseRefundException

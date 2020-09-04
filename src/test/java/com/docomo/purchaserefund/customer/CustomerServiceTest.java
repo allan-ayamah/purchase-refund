@@ -26,7 +26,6 @@ public class CustomerServiceTest {
 
     @After
     public void cleanUp() throws PurchaseRefundException {
-        if(customerIds.isEmpty()) return;
         customerIds.forEach( customerId -> {
             try {
                 customerService.removeCustomer(customerId);

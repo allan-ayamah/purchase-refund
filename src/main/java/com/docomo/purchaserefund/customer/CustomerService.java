@@ -75,7 +75,7 @@ public class CustomerService {
     }
 
     /**
-     * Adds new customer, if the phone number already exists it throws an exception
+     * Adds a new customer, if phone number already exists it throws an exception
      * and doesn't save new customer
      * @param newCustomer
      * @return returns customer id
@@ -93,9 +93,9 @@ public class CustomerService {
             }
             throw ex;
         }
+        newCustomer.setCreatedAt(new Date());
+        newCustomer.setUpdatedAt(new Date());
         try {
-            newCustomer.setCreatedAt(new Date());
-            newCustomer.setUpdatedAt(new Date());
             return customerDao.addCustomer(newCustomer);
         } catch (PurchaseRefundException e ){
             PurchaseRefundException ex = new PurchaseRefundException("Could not add new customer", e);
@@ -123,7 +123,7 @@ public class CustomerService {
     }
 
     /**
-     * Removes a given cutomer from the system
+     * Removes a given customer from the system
      * @param customerId
      * @throws PurchaseRefundException
      */

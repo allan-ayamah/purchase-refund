@@ -26,7 +26,6 @@ public class DbCustomerDaoTest {
 
     @After
     public void cleanUp() throws PurchaseRefundException {
-        if(customerIds.isEmpty()) return;
         customerIds.forEach( customerId -> {
             try {
                 customerDao.removeCustomer(customerId);
@@ -111,7 +110,6 @@ public class DbCustomerDaoTest {
         Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,new Date(),new Date());
         customerDao.addCustomer(customer);
         customerIds.add(customer.getId());
-        Date expectedUpdatedAt = customer.getUpdatedAt();
         customer.setName("James Brown");
         customerDao.updateCustomer(customer);
         Customer newCustomer = customerDao.getCustomerById(customer.getId());

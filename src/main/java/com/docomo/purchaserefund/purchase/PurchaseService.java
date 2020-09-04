@@ -58,7 +58,6 @@ public class PurchaseService {
 
     /**
      * Makes a new purchase
-     *
      * @param customerId the customer id
      * @param purchase  the details of the purchase
      * @return id of the purchase
@@ -79,7 +78,7 @@ public class PurchaseService {
             throw new PurchaseRefundException("Insufficient phone credit");
         }
         if(log.isTraceEnabled()){
-            log.trace(String.format("Customer %d makes a purchase of amount %s",customer.getId(), purchase.getAmount()));
+            log.trace(String.format("Customer %s makes a purchase of amount %s",customer.getId(), purchase.getAmount()));
         }
         Double remainingPhoneCredit = customer.getPhoneCredit() - purchase.getAmount();
         customer.setPhoneCredit(remainingPhoneCredit);
