@@ -3,6 +3,7 @@ package com.docomo.purchaserefund.refund;
 import com.docomo.purchaserefund.customer.CustomerService;
 import com.docomo.purchaserefund.exception.PurchaseRefundException;
 import com.docomo.purchaserefund.model.Customer;
+import com.docomo.purchaserefund.model.Purchase;
 import com.docomo.purchaserefund.model.Refund;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,16 @@ public class RefundService {
         }
     }
 
+    public Refund getRefundById(int id) throws PurchaseRefundException{
+        try{
+            return refundDao.getRefundById(id);
+        } catch (PurchaseRefundException e){
+            PurchaseRefundException ex = new PurchaseRefundException("Could not get Refund by id", e);
+            log.error("",ex);
+            throw ex;
+        }
+    }
+
     /**
      * Returns all refunds made to to a customer
      * @param customerId the customer id
@@ -46,6 +57,7 @@ public class RefundService {
      * @throws PurchaseRefundException
      */
     public List<Refund> getRefundsForCustomer(Integer customerId) throws PurchaseRefundException {
+        if(customerId == null) return null;
         try {
           return refundDao.getRefundByCustomerId(customerId);
         } catch (PurchaseRefundException e){
@@ -63,13 +75,16 @@ public class RefundService {
      * @throws PurchaseRefundException
      */
     public Integer addRefund(Integer customerId, Refund refund) throws PurchaseRefundException {
-        if(refund == null)
+        if(refund == null || customerId == null)
             return null;
         Customer customer = customerService.getCustomerById(customerId);
         if(customer == null) {
             throw new PurchaseRefundException(String.format("Customer with id = %s does not exist", customerId));
         }
         refund.setCustomer(customer);
+        if(refund.getAmount() == null) {
+            throw new PurchaseRefundException("Amount of refund is required");
+        }
         Double newPhoneCredit = customer.getPhoneCredit() + refund.getAmount();
         customer.setPhoneCredit(newPhoneCredit);
         if(log.isTraceEnabled()){
@@ -103,4 +118,6 @@ public class RefundService {
             throw  ex;
         }
     }
+
+
 }

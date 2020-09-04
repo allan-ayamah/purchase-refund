@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PurchaseDao {
     public List<Purchase> getAllPurchases() throws PurchaseRefundException;
-    public Purchase getPurchaseById(Integer purchaseId) throws PurchaseRefundException;
+    public Purchase getPurchaseById(int purchaseId) throws PurchaseRefundException;
     public Integer addPurchase(Purchase purchase) throws PurchaseRefundException;
-    public void removePurchase(Integer purchaseId) throws PurchaseRefundException;
+    public void removePurchase(int purchaseId) throws PurchaseRefundException;
 }

@@ -37,7 +37,7 @@ public class DbPurchaseDao implements PurchaseDao{
     }
 
     @Override
-    public Purchase getPurchaseById(Integer purchaseId) throws PurchaseRefundException {
+    public Purchase getPurchaseById(int purchaseId) throws PurchaseRefundException {
         Session session = null;
         try {
             session = sessionFactory.openSession();
@@ -68,7 +68,7 @@ public class DbPurchaseDao implements PurchaseDao{
     }
 
     @Override
-    public void removePurchase(Integer purchaseId) throws PurchaseRefundException {
+    public void removePurchase(int purchaseId) throws PurchaseRefundException {
         Session session = null;
         try {
             session = sessionFactory.openSession();

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface RefundDao {
     public List<Refund> getAllRefunds() throws PurchaseRefundException;
-    public List<Refund> getRefundByCustomerId(Integer customerId) throws PurchaseRefundException;
+    public Refund getRefundById(int refundId) throws PurchaseRefundException;
+    public List<Refund> getRefundByCustomerId(int customerId) throws PurchaseRefundException;
     public Integer addRefund(Refund refund) throws PurchaseRefundException;
-    public void removeRefund(Integer refundId) throws PurchaseRefundException;
+    public void removeRefund(int refundId) throws PurchaseRefundException;
 }

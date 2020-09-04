@@ -30,7 +30,7 @@ public class RefundController {
     }
 
     @PostMapping("{customerId}/refund")
-    public void refund(@PathVariable(name = "customerId") Integer customerId, @Valid @RequestBody Refund refund) throws PurchaseRefundException {
-        refundService.addRefund(customerId, refund);
+    public Integer refund(@PathVariable(name = "customerId") Integer customerId, @Valid @RequestBody Refund refund) throws PurchaseRefundException {
+        return refundService.addRefund(customerId, refund);
     }
 }

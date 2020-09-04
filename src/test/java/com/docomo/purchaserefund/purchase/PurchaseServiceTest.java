@@ -1,6 +1,5 @@
 package com.docomo.purchaserefund.purchase;
 
-import com.docomo.purchaserefund.PurchaseRefundApplication;
 import com.docomo.purchaserefund.customer.CustomerService;
 import com.docomo.purchaserefund.customer.DbCustomerDao;
 import com.docomo.purchaserefund.dbconfig.SessionFactoryConfig;
@@ -15,6 +14,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PurchaseServiceTest {
     private CustomerService customerService;
@@ -113,7 +113,12 @@ public class PurchaseServiceTest {
         purchaseService.addPurchase(customer.getId(),p2);
         purchaseIds.add(p1.getId());
         purchaseIds.add(p2.getId());
-        Assert.assertTrue(purchaseService.getAllPurchases().size() >= 2);
+        List<Purchase> allPurchases = purchaseService.getAllPurchases();
+        Assert.assertTrue(allPurchases.size() >= 2);
+        Optional<Purchase> p1Record = allPurchases.stream().filter(p -> p.getId() == p1.getId()).findFirst();
+        Assert.assertTrue(p1Record.isPresent());
+        Optional<Purchase> p2Record = allPurchases.stream().filter(p -> p.getId() == p2.getId()).findFirst();
+        Assert.assertTrue(p2Record.isPresent());
     }
 
     @Test

@@ -2,10 +2,7 @@ package com.docomo.purchaserefund.customer;
 
 import com.docomo.purchaserefund.dbconfig.SessionFactoryConfig;
 import com.docomo.purchaserefund.exception.PurchaseRefundException;
-import com.docomo.purchaserefund.helper.HibernateHelper;
 import com.docomo.purchaserefund.model.Customer;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Assert;
@@ -15,6 +12,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerServiceTest {
     private CustomerService customerService;
@@ -46,6 +44,10 @@ public class CustomerServiceTest {
         customerIds.add(c2.getId());
         List<Customer> customers = customerService.getAllCustomers();
         Assert.assertTrue(customers.size() >= 2);
+        Optional<Customer> c1Record = customers.stream().filter(c -> c.getId() == c1.getId()).findFirst();
+        Assert.assertTrue(c1Record.isPresent());
+        Optional<Customer> c2Record = customers.stream().filter(c -> c.getId() == c2.getId()).findFirst();
+        Assert.assertTrue(c2Record.isPresent());
     }
 
     @Test
@@ -82,11 +84,33 @@ public class CustomerServiceTest {
     }
 
     @Test
+    public void testGetCustomerById() throws PurchaseRefundException {
+        Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
+        customerService.addCustomer(customer);
+        customerIds.add(customer.getId());
+
+        Customer sameCustomer = customerService.getCustomerById(customer.getId());
+        Assert.assertNotNull(sameCustomer);
+        Assert.assertTrue(customer.getId() == sameCustomer.getId());
+    }
+
+    @Test
+    public void testGetCustomerByPhoneNumber() throws PurchaseRefundException {
+        Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
+        customerService.addCustomer(customer);
+        customerIds.add(customer.getId());
+
+        Customer sameCustomer = customerService.getCustomerByPhoneNumber(customer.getPhoneNumber());
+        Assert.assertNotNull(sameCustomer);
+        Assert.assertTrue(customer.getId() == sameCustomer.getId());
+        Assert.assertTrue(customer.getPhoneNumber().equals(sameCustomer.getPhoneNumber()));
+    }
+
+    @Test
     public void testUpdateCustomer() throws PurchaseRefundException {
         Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
         customerService.addCustomer(customer);
         customerIds.add(customer.getId());
-        String expectedName = customer.getName();
         Date expectedUpdatedAt = customer.getUpdatedAt();
         customer.setName("James Brown");
         customerService.updateCustomer(customer);

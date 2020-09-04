@@ -42,6 +42,7 @@ public class CustomerService {
      * @throws PurchaseRefundException
      */
     public Customer getCustomerById(Integer customerId) throws PurchaseRefundException{
+        if(customerId == null) return null;
         try {
             if(log.isDebugEnabled())
                 log.debug(String.format("Get customer by id = %s",customerId));
@@ -60,6 +61,7 @@ public class CustomerService {
      * @throws PurchaseRefundException
      */
     public Customer getCustomerByPhoneNumber(String phoneNumber) throws PurchaseRefundException{
+        if(phoneNumber == null) return null;
         try {
             if(log.isDebugEnabled()) {
                 log.debug(String.format("Get customer by phone number = %s", phoneNumber));
@@ -120,6 +122,11 @@ public class CustomerService {
         }
     }
 
+    /**
+     * Removes a given cutomer from the system
+     * @param customerId
+     * @throws PurchaseRefundException
+     */
     public void removeCustomer(Integer customerId) throws PurchaseRefundException {
         if(customerId == null) return;
         try{

@@ -37,7 +37,7 @@ public class DbCustomerDao  implements CustomerDao{
     }
 
     @Override
-    public Customer getCustomerById(Integer customerId) throws PurchaseRefundException {
+    public Customer getCustomerById(int customerId) throws PurchaseRefundException {
         Session session = null;
         try{
             session = sessionFactory.openSession();
@@ -100,7 +100,7 @@ public class DbCustomerDao  implements CustomerDao{
     }
 
     @Override
-    public void removeCustomer(Integer customerId) throws PurchaseRefundException {
+    public void removeCustomer(int customerId) throws PurchaseRefundException {
         Session session = null;
         try {
             session = sessionFactory.openSession();

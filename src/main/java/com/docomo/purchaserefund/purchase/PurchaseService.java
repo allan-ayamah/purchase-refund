@@ -46,6 +46,7 @@ public class PurchaseService {
      * @throws PurchaseRefundException
      */
     public Purchase getPurchaseById(Integer purchaseId) throws PurchaseRefundException {
+        if(purchaseId == null) return null;
         try{
             return purchaseDao.getPurchaseById(purchaseId);
         } catch (PurchaseRefundException e){
@@ -64,7 +65,7 @@ public class PurchaseService {
      * @throws PurchaseRefundException
      */
     public Integer addPurchase(Integer customerId, Purchase purchase) throws PurchaseRefundException {
-        if(purchase == null)
+        if(purchase == null || customerId == null)
             return null;
         Customer customer = customerService.getCustomerById(customerId);
         if(customer == null) {

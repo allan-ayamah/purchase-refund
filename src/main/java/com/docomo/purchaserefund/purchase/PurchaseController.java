@@ -23,8 +23,8 @@ public class PurchaseController {
     }
 
     @PostMapping("{customerId}/purchase")
-    public void purchase(@PathVariable(name = "customerId") Integer customerId,
+    public Integer purchase(@PathVariable(name = "customerId") Integer customerId,
                          @Valid @RequestBody Purchase purchase) throws PurchaseRefundException {
-        purchaseService.addPurchase(customerId, purchase);
+        return purchaseService.addPurchase(customerId, purchase);
     }
 }
