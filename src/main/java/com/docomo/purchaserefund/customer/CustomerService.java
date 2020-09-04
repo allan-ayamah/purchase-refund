@@ -82,18 +82,18 @@ public class CustomerService {
      * @throws PurchaseRefundException
      */
     public Integer addCustomer(Customer newCustomer) throws PurchaseRefundException {
-        try {
-            if(newCustomer == null)
-                return null;
-            Customer customer = customerDao.getCustomerByPhoneNumber(newCustomer.getPhoneNumber());
-            if(customer != null){
-                String message = String.format("Customer with phone number = %s already exist", newCustomer.getPhoneNumber());
-                PurchaseRefundException ex = new PurchaseRefundException(message);
-                if(log.isErrorEnabled()) {
-                    log.error("",ex);
-                }
-                throw ex;
+        if(newCustomer == null)
+            return null;
+        Customer customer = customerDao.getCustomerByPhoneNumber(newCustomer.getPhoneNumber());
+        if(customer != null){
+            String message = String.format("Customer with phone number = %s already exist", newCustomer.getPhoneNumber());
+            PurchaseRefundException ex = new PurchaseRefundException(message);
+            if(log.isErrorEnabled()) {
+                log.error("",ex);
             }
+            throw ex;
+        }
+        try {
             newCustomer.setCreatedAt(new Date());
             newCustomer.setUpdatedAt(new Date());
             return customerDao.addCustomer(newCustomer);
@@ -110,9 +110,9 @@ public class CustomerService {
      * @throws PurchaseRefundException
      */
     public void updateCustomer(Customer customer) throws PurchaseRefundException {
+        if (customer == null)
+            return;
         try {
-            if (customer == null)
-                return;
             customer.setUpdatedAt(new Date());
             customerDao.updateCustomer(customer);
         } catch (PurchaseRefundException e ){

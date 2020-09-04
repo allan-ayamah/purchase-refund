@@ -13,7 +13,7 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
-    @SequenceGenerator(name="customer_generator", sequenceName = "customer_seq")
+    @SequenceGenerator(name="customer_generator", sequenceName = "customer_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private int id;
 
