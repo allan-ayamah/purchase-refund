@@ -62,6 +62,7 @@ public class CustomerServiceTest {
         Assert.assertFalse(customerService.isPhoneNumberValid(null));
         Assert.assertFalse(customerService.isPhoneNumberValid("         "));
         Assert.assertFalse(customerService.isPhoneNumberValid("32785621"));
+        Assert.assertFalse(customerService.isPhoneNumberValid("327855854afr"));
     }
 
     @Test
