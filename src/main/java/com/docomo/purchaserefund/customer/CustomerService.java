@@ -75,7 +75,7 @@ public class CustomerService {
     }
 
     /**
-     * Validates phone number
+     * Validates phone number.
      * ex: 3272259845 = true
      * ex: 327(225)9845 = true
      * ex: 327 225 9845 = true
@@ -95,7 +95,7 @@ public class CustomerService {
         int i = 0;
         while(isValid && i < phoneNumber.length()) {
             char c = phoneNumber.charAt(i);
-            isValid = c == '+' || c == ' ' || c == '(' || c == ')' || Character.isDigit(c);
+            isValid = (c == '+' && i == 0) || c == ' ' || c == '(' || c == ')' || Character.isDigit(c);
             i++;
         }
         return isValid;
