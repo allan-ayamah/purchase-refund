@@ -53,12 +53,13 @@ public class PurchaseServiceTest {
         purchaseService.addPurchase(customer.getId(),purchase);
         purchaseIds.add(purchase.getId());
 
-        Assert.assertNotNull(purchase.getItemDescription());
-        Assert.assertNotNull(purchase.getAmount());
-        Assert.assertNotNull(purchase.getCurrency());
-        Assert.assertNotNull(purchase.getCustomer());
-        Assert.assertNotNull(purchase.getCreatedAt());
-        Assert.assertNotNull(purchase.getUpdatedAt());
+        Purchase samePurchase = purchaseService.getPurchaseById(purchase.getId());
+        Assert.assertNotNull(samePurchase.getItemDescription());
+        Assert.assertNotNull(samePurchase.getAmount());
+        Assert.assertNotNull(samePurchase.getCurrency());
+        Assert.assertNotNull(samePurchase.getCustomer());
+        Assert.assertNotNull(samePurchase.getCreatedAt());
+        Assert.assertNotNull(samePurchase.getUpdatedAt());
     }
 
     @Test

@@ -56,12 +56,13 @@ public class RefundServiceTest {
         refundService.addRefund(customer.getId(),refund);
         redundIds.add(refund.getId());
 
-        Assert.assertNotNull(refund.getDescription());
-        Assert.assertNotNull(refund.getAmount());
-        Assert.assertNotNull(refund.getCurrency());
-        Assert.assertNotNull(refund.getCustomer());
-        Assert.assertNotNull(refund.getCreatedAt());
-        Assert.assertNotNull(refund.getUpdatedAt());
+        Refund sameRefund = refundService.getRefundById(refund.getId());
+        Assert.assertNotNull(sameRefund.getDescription());
+        Assert.assertNotNull(sameRefund.getAmount());
+        Assert.assertNotNull(sameRefund.getCurrency());
+        Assert.assertNotNull(sameRefund.getCustomer());
+        Assert.assertNotNull(sameRefund.getCreatedAt());
+        Assert.assertNotNull(sameRefund.getUpdatedAt());
     }
 
     @Test

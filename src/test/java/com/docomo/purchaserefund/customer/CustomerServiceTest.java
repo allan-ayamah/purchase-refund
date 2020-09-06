@@ -50,16 +50,32 @@ public class CustomerServiceTest {
     }
 
     @Test
+    public void testIsPhoneNumberValid() {
+        Assert.assertTrue(customerService.isPhoneNumberValid("3272548962"));
+        Assert.assertTrue(customerService.isPhoneNumberValid("327(254)8962"));
+        Assert.assertTrue(customerService.isPhoneNumberValid("327 (254) 8962"));
+        Assert.assertTrue(customerService.isPhoneNumberValid("+393272548962"));
+    }
+
+    @Test
+    public void testPhoneNumberIsNotValid() {
+        Assert.assertFalse(customerService.isPhoneNumberValid(null));
+        Assert.assertFalse(customerService.isPhoneNumberValid("         "));
+        Assert.assertFalse(customerService.isPhoneNumberValid("32785621"));
+    }
+
+    @Test
     public void testAddCustomer() throws PurchaseRefundException {
         Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
         Integer customerId = customerService.addCustomer(customer);
         Assert.assertNotNull(customerId);
         customerIds.add(customerId);
-        Assert.assertNotNull(customerService.getCustomerById(customerId));
-        Assert.assertNotNull(customer.getName());
-        Assert.assertNotNull(customer.getPhoneNumber());
-        Assert.assertNotNull(customer.getCreatedAt());
-        Assert.assertNotNull(customer.getUpdatedAt());
+        Customer sameCustomer = customerService.getCustomerById(customerId);
+        Assert.assertNotNull(sameCustomer);
+        Assert.assertNotNull(sameCustomer.getName());
+        Assert.assertNotNull(sameCustomer.getPhoneNumber());
+        Assert.assertNotNull(sameCustomer.getCreatedAt());
+        Assert.assertNotNull(sameCustomer.getUpdatedAt());
     }
 
     @Test

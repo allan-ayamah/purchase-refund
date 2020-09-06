@@ -75,6 +75,33 @@ public class CustomerService {
     }
 
     /**
+     * Validates phone number
+     * ex: 3272259845 = true
+     * ex: 327(225)9845 = true
+     * ex: 327 225 9845 = true
+     * ex: +39 3272259845 = true
+     * @param phoneNumber the phone number to validate
+     * @return
+     */
+    public boolean isPhoneNumberValid(String phoneNumber) {
+        if(phoneNumber == null) {
+            return false;
+        }
+        phoneNumber = phoneNumber.trim();
+        if(phoneNumber.length() < 9) {
+            return false;
+        }
+        boolean isValid = true;
+        int i = 0;
+        while(isValid && i < phoneNumber.length()) {
+            char c = phoneNumber.charAt(i);
+            isValid = c == '+' || c == ' ' || c == '(' || c == ')' || Character.isDigit(c);
+            i++;
+        }
+        return isValid;
+    }
+
+    /**
      * Adds a new customer, if phone number already exists it throws an exception
      * and doesn't save new customer
      * @param newCustomer
@@ -84,6 +111,9 @@ public class CustomerService {
     public Integer addCustomer(Customer newCustomer) throws PurchaseRefundException {
         if(newCustomer == null)
             return null;
+        if(!isPhoneNumberValid(newCustomer.getPhoneNumber())) {
+            throw new PurchaseRefundException("The phone number is not valid");
+        }
         Customer customer = customerDao.getCustomerByPhoneNumber(newCustomer.getPhoneNumber());
         if(customer != null){
             String message = String.format("Customer with phone number = %s already exist", newCustomer.getPhoneNumber());
