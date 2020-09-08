@@ -136,4 +136,11 @@ public class CustomerServiceTest {
         Assert.assertTrue(!expectedUpdatedAt.equals(newCustomer.getUpdatedAt()));
     }
 
+    @Test
+    public void testRemoveCustomer() throws PurchaseRefundException {
+        Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
+        customerService.addCustomer(customer);
+        customerService.removeCustomer(customer.getId());
+        Assert.assertNull(customerService.getCustomerById(customer.getId()));
+    }
 }

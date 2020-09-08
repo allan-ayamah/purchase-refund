@@ -115,4 +115,12 @@ public class DbCustomerDaoTest {
         Customer newCustomer = customerDao.getCustomerById(customer.getId());
         Assert.assertTrue("James Brown".equals(newCustomer.getName()));
     }
+
+    @Test
+    public void testRemoveCustomer() throws PurchaseRefundException {
+        Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,new Date(),new Date());
+        customerDao.addCustomer(customer);
+        customerDao.removeCustomer(customer.getId());
+        Assert.assertNull(customerDao.getCustomerById(customer.getId()));
+    }
 }
