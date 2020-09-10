@@ -91,6 +91,20 @@ public class PurchaseServiceTest {
     }
 
     @Test
+    public void testAddPurchaseInsufficientPhoneCredit() throws PurchaseRefundException{
+        Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
+        customerService.addCustomer(customer);
+        customerIds.add(customer.getId());
+        try {
+            Purchase purchase = new Purchase(0, "IPhone XR", 120.0, null, null, null, null);
+            purchaseService.addPurchase(customer.getId(), purchase);
+            Assert.fail("This should fail");
+        } catch (PurchaseRefundException expected) {
+
+        }
+    }
+
+    @Test
     public void testCustomerPhoneCreditGetsDeductedOnPurchase() throws PurchaseRefundException {
         Customer customer = new Customer(0,"Maria Jones","+393275412502",100.0,null,null);
         customerService.addCustomer(customer);
