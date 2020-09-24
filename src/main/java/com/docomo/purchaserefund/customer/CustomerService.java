@@ -84,21 +84,19 @@ public class CustomerService {
      * @return
      */
     public boolean isPhoneNumberValid(String phoneNumber) {
-        if(phoneNumber == null) {
+        if(phoneNumber == null)
             return false;
-        }
+
         phoneNumber = phoneNumber.trim();
-        if(phoneNumber.length() < 9) {
+        if(phoneNumber.length() < 9)
             return false;
-        }
-        boolean isValid = true;
-        int i = 0;
-        while(isValid && i < phoneNumber.length()) {
+
+        for(int i = 0; i < phoneNumber.length(); i++) {
             char c = phoneNumber.charAt(i);
-            isValid = (c == '+' && i == 0) || c == ' ' || c == '(' || c == ')' || Character.isDigit(c);
-            i++;
+            if(!((c == '+' && i == 0) || c == ' ' || c == '(' || c == ')' || Character.isDigit(c)))
+                return false;
         }
-        return isValid;
+        return true;
     }
 
     /**
