@@ -83,12 +83,8 @@ public class CustomerService {
      * @param phoneNumber the phone number to validate
      * @return
      */
-    public boolean isPhoneNumberValid(String phoneNumber) {
-        if(phoneNumber == null) {
-            return false;
-        }
-        phoneNumber = phoneNumber.trim();
-        if(phoneNumber.length() < 9) {
+    public static boolean isPhoneNumberValid(String phoneNumber) {
+        if(phoneNumber == null || phoneNumber.trim().length() < 9) {
             return false;
         }
         for(int i = 0; i < phoneNumber.length(); i++) {
