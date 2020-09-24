@@ -84,17 +84,22 @@ public class CustomerService {
      * @return
      */
     public boolean isPhoneNumberValid(String phoneNumber) {
-        if(phoneNumber == null)
+        if(phoneNumber == null) {
             return false;
-
+        }
         phoneNumber = phoneNumber.trim();
-        if(phoneNumber.length() < 9)
+        if(phoneNumber.length() < 9) {
             return false;
-
+        }
         for(int i = 0; i < phoneNumber.length(); i++) {
             char c = phoneNumber.charAt(i);
-            if(!((c == '+' && i == 0) || c == ' ' || c == '(' || c == ')' || Character.isDigit(c)))
+            if(!((c == '+' && i == 0)
+                    || c == ' '
+                    || c == '('
+                    || c == ')'
+                    || Character.isDigit(c))) {
                 return false;
+            }
         }
         return true;
     }
