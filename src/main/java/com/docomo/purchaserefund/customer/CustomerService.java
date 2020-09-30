@@ -90,6 +90,7 @@ public class CustomerService {
         for(int i = 0; i < phoneNumber.length(); i++) {
             char c = phoneNumber.charAt(i);
             if(!((c == '+' && i == 0)
+                    || (c == '.' && i > 0)
                     || c == ' '
                     || c == '('
                     || c == ')'
